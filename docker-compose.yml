@@ -5,7 +5,7 @@ services:
     # ports:
     #   - 80:80
     environment:
-      CACHE_SIZE: 50 # optional: message count stored. Defaults to zero.
+      CACHE_SIZE: 0 # optional: message count stored. Defaults to zero.
     healthcheck:
       interval: 60s
       retries: 10
