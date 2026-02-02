@@ -1,17 +1,15 @@
 services:
-  chat:
-    image: m1k1o/chat:latest
-    restart: unless-stopped
-    # ports:
-    #   - 80:80
-    environment:
-      CACHE_SIZE: 0 # optional: message count stored. Defaults to zero.
-    healthcheck:
-      interval: 60s
-      retries: 10
-      test: ["CMD", "curl", "http://localhost"]
-      start_period: 5s
-      timeout: 10s
+  vocechat-server:
+      restart: always
+      # ports:
+      #     - 3000:3000
+      environment:
+          - PUID=1000
+          - PGID=1000
+      container_name: vocechat-server
+      volumes:
+          - /docker/vocechat/data:/home/vocechat-server/data
+      image: privoce/vocechat-server:latest
 
   openclaw-gateway:
     image: ${OPENCLAW_IMAGE:-openclaw:local}
