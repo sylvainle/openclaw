@@ -67,6 +67,31 @@ services:
         "${OPENCLAW_GATEWAY_PORT2:-18789}",
       ]
 
+  openclaw-gateway3:
+    image: ${OPENCLAW_IMAGE:-openclaw:local}
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+    volumes:
+      - ${OPENCLAW_CONFIG_DIR3}:/home/node/.openclaw
+      - ${OPENCLAW_WORKSPACE_DIR3}:/home/node/.openclaw/workspace
+    # ports:
+    #   - "${OPENCLAW_GATEWAY_PORT3:-18789}:18789"
+    #   - "${OPENCLAW_BRIDGE_PORT3:-18790}:18790"
+    init: true
+    restart: unless-stopped
+    command:
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "${OPENCLAW_GATEWAY_BIND:-lan}",
+        "--port",
+        "${OPENCLAW_GATEWAY_PORT3:-18793}"
+      ]
+
   openclaw-cli:
     image: ${OPENCLAW_IMAGE:-openclaw:local}
     environment:
